@@ -1,0 +1,83 @@
+#!/bin/bash
+##################
+self=$_
+last=$( tac $self | grep -m 1 '[^[:blank:]]' )
+if [[ $( echo $last | grep -E "^[[:digit:]]{1,}$" ) ]]
+then
+    version=$last
+else
+    old_version=$( tac $self | grep -m 1 -E "^[[:digit:]]+$" )
+    version=$((old_version + 1))
+    incdate=$( date +%Y-%m-%d )
+    echo -e "$incdate\n$version" >> $self
+    #echo "$version" >> $self
+    build="${self//minor/build}"
+    replaced=$( sed -i '$ c0' $build ) 
+fi
+echo $version
+exit
+##################
+1
+Changed the librules cond_contains() behavior dependent to a hash field
+2024-08-20
+2
+Changed the librules macros behavior - it makes getFirst() now
+2024-08-29
+3
+Supports macros in timeouts and thresholds
+2024-09-04
+4
+Rebuilds the entities and variables list to 
+https://confluence.carrierzone.com/confluence/display/SYS/The+concept+of+uniform+REDIS+based+rules
+Version (2024/09/10) draft
+2024-09-10
+5
+Added stage specific rulesets (test version)
+2024-09-21
+6
+Sets context concept on the processing
+2024-09-23
+7
+Fixed some bug in the rules_lib
+2024-09-30
+8
+Expand macros in intersect
+2024-10-05
+9
+Added `set` operator `^`
+2024-10-06
+10
+Changed `librules` code for support `on-continue` logic
+2024-10-07
+11
+Removes the restriction on using `i` as the first character in names (librules)
+2024-10-08
+12
+Changed calculation of the internal recipients
+2024-10-14
+13
+Changed `librules` code for `rule_substituteVars()` logic
+2024-10-16
+14
+Changed `librules` code globally
+2024-10-28
+15
+The `wrapper.redis` implementation has been changed from multiple to a single redis server instance
+2024-12-24
+16
+The `wrapper.berkeley` implementation has been changed to detect NUL-terminated keys. 
+`berkeley_get` is deprecated, use `berkeley_read` instead.
+Therefore, `wrapper.pool` has also changed.
+2025-01-15
+17
+The `wrapper` implementation has been changed.
+Added `wrapper.entities`.
+2025-01-29
+18
+Version 3.19 was skipped due to the anniversary release.
+19
+The principles of entities have changed. 
+We now have a fast hasing mechanism for accessing entities. 
+This is a strong marker for starting a new 'skeleton' flow.
+2025-02-04
+20
